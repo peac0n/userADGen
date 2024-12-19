@@ -6,6 +6,8 @@
 
 This project was initially created in 2024 by [@peac0n](https://github.com/peac0n).
 
+![Demo GIF](images/Beac0n.gif)
+
 #### A Python-powered Active Directory username generator that crafts all possible naming combos in a snap. :zap:
 
 
