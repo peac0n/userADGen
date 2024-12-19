@@ -9,7 +9,7 @@ This project was initially created in 2024 by [@peac0n](https://github.com/peac0
 #### A Python-powered Active Directory username generator that crafts all possible naming combos in a snap. :zap:
 
 
-# Installation Linux
+# Installation in Linux
 #### Clone this repository and ensure you have Python 3 installed.
 ```
 git clone https://github.com/<your-username>/userADGen.git
