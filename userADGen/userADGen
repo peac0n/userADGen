@@ -1,0 +1,220 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
+
+# ANSI color codes for styling
+BOLD = "\033[1m"
+BOLD_WHITE = "\033[1;37m"
+BOLD_RED = "\033[1;31m"
+BOLD_GREEN = "\033[1;32m"
+BOLD_ORANGE = "\033[1;38;5;208m"
+RESET = "\033[0m"
+
+# ASCII banner
+banner = f"""{BOLD_WHITE}                                     .d888888  888888ba   .88888.                    
+                                    d8'    88  88    `8b d8'   `88                   
+dP    dP .d8888b. .d8888b. 88d888b. 88aaaaa88a 88     88 88        .d8888b. 88d888b. 
+88    88 Y8ooooo. 88ooood8 88'  `88 88     88  88     88 88   YP88 88ooood8 88'  `88 
+88.  .88       88 88.  ... 88       88     88  88    .8P Y8.   .88 88.  ... 88    88 
+`88888P' `88888P' `88888P' dP       88     88  8888888P   `88888'  `88888P' dP    dP 
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+                                                                                      {RESET}"""
+
+version_line = f"{BOLD_ORANGE}Version: 1.0{RESET} {BOLD_WHITE}- Generator Usernames for Active Directory  - 11/28/24 | Created by {BOLD_RED}@Beac0n{RESET}"
+
+def print_banner():
+    print(banner)
+    print(version_line)
+    print()
+
+def print_help():
+    help_text = f"""
+{BOLD_WHITE}Usage:{RESET} userADGen [options]
+
+{BOLD_WHITE}Options:{RESET}
+  {BOLD_GREEN}-h, --help{RESET}        Show this help message and exit
+  {BOLD_GREEN}--firstname{RESET}       Specify the first name
+  {BOLD_GREEN}--lastname{RESET}        Specify the last name
+  {BOLD_GREEN}--outfile{RESET}         Specify output file to save the result
+"""
+    print(help_text)
+
+def generate_variations(firstname: str, lastname: str):
+    def cap_first_letter(s):
+        return s.capitalize() if s else s
+
+    fn = firstname
+    ln = lastname
+
+    # Prepare firstname variants
+    FN_cap_full = cap_first_letter(fn)
+    FN_cap_3 = cap_first_letter(fn[:3])
+    FN_cap_1 = fn[0:1].upper() if len(fn) >= 1 else ""
+    FN_cap_2 = fn[1:2].upper() if len(fn) >= 2 else ""
+    FN_cap_last = fn[-1:].upper() if len(fn) >= 1 else ""
+
+    FN_lower_full = fn.lower()
+    FN_lower_3 = fn[:3].lower()
+    FN_lower_1 = fn[0:1].lower() if len(fn) >= 1 else ""
+    FN_lower_2 = fn[1:2].lower() if len(fn) >= 2 else ""
+    FN_lower_last = fn[-1:].lower() if len(fn) >= 1 else ""
+
+    # Prepare lastname variants
+    LN_cap_full = cap_first_letter(ln)
+    LN_cap_3 = cap_first_letter(ln[:3])
+    LN_cap_last4 = cap_first_letter(ln[-4:]) if len(ln) >= 4 else cap_first_letter(ln)
+    LN_cap_1 = ln[0:1].upper() if len(ln) >= 1 else ""
+    LN_cap_3rdChar = ln[2:3].upper() if len(ln) >= 3 else ""
+
+    LN_lower_full = ln.lower()
+    LN_lower_3 = ln[:3].lower()
+    LN_lower_last4 = ln[-4:].lower() if len(ln) >= 4 else ln.lower()
+    LN_lower_1 = ln[0:1].lower() if len(ln) >= 1 else ""
+    LN_lower_3rdChar = ln[2:3].lower() if len(ln) >= 3 else ""
+
+    def join_parts(a, b, sep):
+        return f"{a}{sep}{b}" if sep else f"{a}{b}"
+
+    results = []
+
+    # Patterns for '.' separator (uppercase set)
+    dot_upper = [
+        (FN_cap_full, LN_cap_full),
+        (FN_cap_3, LN_cap_full),
+        (FN_cap_full, LN_cap_1),
+        (FN_cap_full, LN_cap_3rdChar),
+        (FN_cap_1, LN_cap_full),
+        (FN_cap_2, LN_cap_full),
+        (FN_cap_last, LN_cap_full),
+        (FN_cap_full, LN_cap_3),
+        (FN_cap_full, LN_cap_last4)
+    ]
+
+    # '.' lowercase set
+    dot_lower = [
+        (FN_lower_full, LN_lower_full),
+        (FN_lower_full, LN_lower_1),
+        (FN_lower_full, LN_lower_3rdChar),
+        (FN_lower_1, LN_lower_full),
+        (FN_lower_2, LN_lower_full),
+        (FN_lower_last, LN_lower_full),
+        (FN_lower_full, LN_lower_3),
+        (FN_lower_full, LN_lower_last4)
+    ]
+
+    # '-' and '_' use the same patterns
+    dash_upper = dot_upper
+    dash_lower = dot_lower
+    underscore_upper = dot_upper
+    underscore_lower = dot_lower
+
+    # no separator uppercase
+    nosep_upper = [
+        (FN_cap_full, LN_cap_full),
+        (FN_cap_3, LN_cap_full),
+        (FN_cap_full, LN_cap_1),
+        (FN_cap_full, LN_cap_3rdChar),
+        (FN_cap_1, LN_cap_full),
+        (FN_cap_2, LN_cap_full),
+        (FN_cap_last, LN_cap_full),
+        (FN_cap_full, LN_cap_3),
+        (FN_cap_full, LN_cap_last4),
+        (FN_cap_full, LN_cap_full) # repeated
+    ]
+
+    # no separator lowercase
+    nosep_lower = [
+        (FN_lower_full, LN_lower_1),
+        (FN_lower_full, LN_lower_3rdChar),
+        (FN_lower_1, LN_lower_full),
+        (FN_lower_2, LN_lower_full),
+        (FN_lower_last, LN_lower_full),
+        (FN_lower_full, LN_lower_3),
+        (FN_lower_full, LN_lower_last4)
+    ]
+
+    # '.' separator
+    for a,b in dot_upper:
+        if a and b:
+            results.append(join_parts(a, b, '.'))
+    for a,b in dot_lower:
+        if a and b:
+            results.append(join_parts(a, b, '.'))
+
+    # '-' separator
+    for a,b in dash_upper:
+        if a and b:
+            results.append(join_parts(a, b, '-'))
+    for a,b in dash_lower:
+        if a and b:
+            results.append(join_parts(a, b, '-'))
+
+    # '_' separator
+    for a,b in underscore_upper:
+        if a and b:
+            results.append(join_parts(a, b, '_'))
+    for a,b in underscore_lower:
+        if a and b:
+            results.append(join_parts(a, b, '_'))
+
+    # no separator uppercase
+    for a,b in nosep_upper:
+        if a and b:
+            results.append(join_parts(a, b, ''))
+
+    # no separator lowercase
+    for a,b in nosep_lower:
+        if a and b:
+            results.append(join_parts(a, b, ''))
+
+    return results
+
+def main():
+    if len(sys.argv) == 1:
+        print_banner()
+        print_help()
+        sys.exit(0)
+
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit")
+    parser.add_argument("--firstname", type=str, help="Specify the first name")
+    parser.add_argument("--lastname", type=str, help="Specify the last name")
+    parser.add_argument("--outfile", type=str, help="Specify output file")
+
+    args = parser.parse_args()
+
+    print_banner()
+
+    if args.help:
+        print_help()
+        sys.exit(0)
+
+    if not args.firstname or not args.lastname:
+        print(f"{BOLD_RED}Error:{RESET} Firstname and Lastname must be provided.")
+        print_help()
+        sys.exit(1)
+
+    # Generate all possibilities
+    results = generate_variations(args.firstname, args.lastname)
+
+    if args.outfile:
+        # If outfile is specified, we will save the names to file
+        # and print "Generated AD Usernames is Done!" with "Done!" in green bold
+        try:
+            with open(args.outfile, 'w') as f:
+                for r in results:
+                    f.write(r + "\n")
+            print(f"{BOLD_WHITE}Generated AD Usernames is {BOLD_GREEN}Done!{RESET}")
+        except Exception as e:
+            print(f"{BOLD_RED}Error writing to file:{RESET} {e}")
+            sys.exit(1)
+    else:
+        # If no outfile, print them to console
+        print(f"{BOLD_WHITE}Generated Usernames:{RESET}")
+        for r in results:
+            print(r)
+
+if __name__ == "__main__":
+    main()
+
