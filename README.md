@@ -22,7 +22,7 @@ cp /usr/local/bin/userADGen
 
 # Usage Example
 ```
-./userADGen --firstname "Ahmed" --lastname "Alamri" --outfile usernames.txt
+userADGen --firstname "Ahmed" --lastname "Alamri" --outfile usernames.txt
 ```
  * `--firstname` and `--lastname` are required.
  * `--outfile` is optional. If provided, results are written directly to the file without printing them to the screen.
@@ -31,5 +31,5 @@ cp /usr/local/bin/userADGen
 
 # For Help:
 ```
-./userADGen --help
+userADGen --help
 ```
