@@ -16,6 +16,7 @@ This project was initially created in 2024 by [@peac0n](https://github.com/peac0
 ```
 git clone https://github.com/peac0n/userADGen.git
 cd userADGen
+cp /usr/local/bin/userADGen
 ```
 
 
