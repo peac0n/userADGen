@@ -8,12 +8,14 @@ This project was initially created in 2024 by [@peac0n](https://github.com/peac0
 
 #### A Python-powered Active Directory username generator that crafts all possible naming combos in a snap. :zap:
 
+
 # Installation Linux
 #### Clone this repository and ensure you have Python 3 installed.
 ```
 git clone https://github.com/<your-username>/userADGen.git
 cd userADGen
 ```
+
 
 # Usage Example
 ```
@@ -22,6 +24,7 @@ cd userADGen
  * `--firstname` and `--lastname` are required.
  * `--outfile` is optional. If provided, results are written directly to the file without printing them to the screen.
  * This command generates all possible AD-style usernames for "Ahmed Alamri" and saves them in `usernames.txt`.
+
 
 # For Help:
 ```
