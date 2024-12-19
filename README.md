@@ -12,7 +12,7 @@ This project was initially created in 2024 by [@peac0n](https://github.com/peac0
 # Installation in Linux
 #### Clone this repository and ensure you have Python 3 installed.
 ```
-git clone https://github.com/<your-username>/userADGen.git
+git clone https://github.com/peac0n/userADGen.git
 cd userADGen
 ```
 
