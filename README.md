@@ -1,6 +1,6 @@
 ![Supported Python versions](https://img.shields.io/badge/python-3.10+-blue.svg)
 
-🚩 This is the open source repository of userADGen maintained by passionate Chill Guy :dizzy:
+🚩 This is the open source repository of userADGen maintained by Chill Guy :dizzy:
 # userADGen - The Username AD Generator Tool
 [![CircleCI](https://circleci.com/gh/ropnop/kerbrute.svg?style=svg)](https://circleci.com/gh/ropnop/kerbrute)
 
