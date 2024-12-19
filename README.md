@@ -4,7 +4,7 @@
 # userADGen - The Username AD Generator Tool
 [![CircleCI](https://circleci.com/gh/ropnop/kerbrute.svg?style=svg)](https://circleci.com/gh/ropnop/kerbrute)
 
-This project was initially created in 2024 by @peac0n.
+This project was initially created in 2024 by [@peac0n](https://github.com/peac0n).
 
 #### A Python-powered Active Directory username generator that crafts all possible naming combos in a snap. :zap:
 
